@@ -1,0 +1,58 @@
+:root {
+            --shikho-purple: #8e2de2;
+            --shikho-pink: #f00b51;
+            --bg-light: #f8f9fa;
+        }
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Sidebar Styles */
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--shikho-purple), var(--shikho-pink));
+            color: white;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 5px;
+        }
+        /* Table and Card Styles */
+        .main-content {
+            padding: 30px;
+        }
+        .dashboard-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: white;
+        }
+        .table thead {
+            background-color: #fce4ec;
+            color: var(--shikho-pink);
+        }
+        .btn-view {
+            background-color: var(--shikho-purple);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            padding: 5px 15px;
+        }
+        .btn-view:hover {
+            background-color: var(--shikho-pink);
+            color: white;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+        }

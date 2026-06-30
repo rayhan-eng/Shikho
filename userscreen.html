@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Upload - Shikho Style</title>
+    <!-- Bootstrap 5 CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <style>
+        :root {
+            --shikho-gradient: linear-gradient(90deg, #8e2de2, #f00b51);
+            --soft-bg: #fdfdfd;
+        }
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .upload-container {
+            max-width: 900px;
+            margin: 50px auto;
+        }
+        .card-upload {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            background: white;
+            padding: 40px;
+        }
+        .upload-header {
+            border-bottom: 2px solid #f1f1f1;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+        }
+        .upload-header h2 {
+            background: var(--shikho-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #444;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(142, 45, 226, 0.2);
+            border-color: #8e2de2;
+        }
+        .drag-drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            background: #fafafa;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .drag-drop-area:hover {
+            border-color: #f00b51;
+            background: #fff5f8;
+        }
+        .btn-upload {
+            background: var(--shikho-gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn-upload:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            color: white;
+        }
+        .preview-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <!-- লোগো -->
+            <a class="navbar-brand" href="Shikho.html">
+                <img src="images/ShikhoLogo.png" alt="Shikho">
+            </a>
+
+            <!-- মোবাইল মেনু টগলার -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#shikhoNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="shikhoNav">
+                <ul class="navbar-nav mx-auto">
+
+                    <!-- স্কুল ড্রপডাউন -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="schoolDrop" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">স্কুল</a>
+                        <ul class="dropdown-menu" aria-labelledby="schoolDrop">
+                            <li><a class="dropdown-item" href="#">ক্লাস ৫</a></li>
+                            <li><a class="dropdown-item" href="#">ক্লাস ৬</a></li>
+                            <li><a class="dropdown-item" href="#">ক্লাস ৭</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- একাডেমিক ড্রপডাউন -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="academicDrop" role="button"
+                            data-bs-toggle="dropdown">একাডেমিক</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">এসএসসি (SSC)</a></li>
+                            <li><a class="dropdown-item" href="#">এইচএসসি (HSC)</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- লক্ষ্য GPA5 ড্রপডাউন -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="gpaDrop" role="button"
+                            data-bs-toggle="dropdown">লক্ষ্য GPA5</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">গণিত প্রোগ্রাম</a></li>
+                            <li><a class="dropdown-item" href="#">বিজ্ঞান প্রোগ্রাম</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- এডমিশন ড্রপডাউন -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="admissionDrop" role="button"
+                            data-bs-toggle="dropdown">এডমিশন</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">বিশ্ববিদ্যালয়</a></li>
+                            <li><a class="dropdown-item" href="#">মেডিকেল</a></li>
+                            <li><a class="dropdown-item" href="#">ইঞ্জিনিয়ারিং</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="userscreen.html">ব্যবহারকারী সংযোগস্থল</a>
+                    </li>
+                    <!-- আরো ড্রপডাউন -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="moreDrop" role="button"
+                            data-bs-toggle="dropdown">আরো</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">ব্লগ</a></li>
+                            <li><a class="dropdown-item" href="#">সহায়তা</a></li>
+                        </ul>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">ড্যাশবোর্ড</a>
+                    </li>
+                </ul>
+
+                
+
+                <!-- লগ ইন  -->
+                <div class="d-flex">
+                    <a href="#" class="btn-login fw-light" data-bs-toggle="modal" data-bs-target="#loginModal">লগ ইন / সাইন আপ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div class="container upload-container">
+    <div class="card card-upload">
+        <div class="upload-header d-flex justify-content-between align-items-center">
+            <h2>নতুন কন্টেন্ট আপলোড করুন</h2>
+            <a href="#" class="btn btn-sm btn-outline-secondary rounded-pill">ফিরে যান</a>
+        </div>
+
+        <form action="#">
+            <div class="row g-4">
+                <!-- কন্টেন্ট টাইটেল -->
+                <div class="col-md-12">
+                    <label class="form-label">ভিডিও বা লেসন টাইটেল</label>
+                    <input type="text" class="form-control" placeholder="যেমন: আলোর প্রতিফলন - পর্ব ১">
+                </div>
+
+                <!-- ক্যাটাগরি এবং বিষয় -->
+                <div class="col-md-6">
+                    <label class="form-label">শ্রেণী নির্বাচন করুন</label>
+                    <select class="form-select">
+                        <option selected>নির্বাচন করুন</option>
+                        <option>এসএসসি (SSC)</option>
+                        <option>এইচএসসি (HSC)</option>
+                        <option>স্কিল ডেভেলপমেন্ট</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">বিষয়</label>
+                    <select class="form-select">
+                        <option selected>নির্বাচন করুন</option>
+                        <option>পদার্থবিজ্ঞান</option>
+                        <option>রসায়ন</option>
+                        <option>গণিত</option>
+                        <option>ইংরেজি</option>
+                    </select>
+                </div>
+
+                <!-- ভিডিও ফাইল ড্র্যাগ এন্ড ড্রপ -->
+                <div class="col-md-12">
+                    <label class="form-label">ভিডিও ফাইল আপলোড করুন</label>
+                    <div class="drag-drop-area" onclick="document.getElementById('videoInput').click()">
+                        <input type="file" id="videoInput" hidden accept="video/*">
+                        <h4 class="mb-2">📁</h4>
+                        <p class="mb-0 text-muted">আপনার ভিডিওটি এখানে ড্র্যাগ করে আনুন অথবা <strong>ব্রাউজ</strong> করুন</p>
+                        <small class="text-secondary">সর্বোচ্চ সাইজ: ৫০০ এমবি (MP4, MKV)</small>
+                    </div>
+                </div>
+
+                <!-- থাম্বনেইল এবং নোটস -->
+                <div class="col-md-6">
+                    <label class="form-label">থাম্বনেইল ইমেজ</label>
+                    <input type="file" class="form-control" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">লেকচার নোটস (PDF)</label>
+                    <input type="file" class="form-control" accept=".pdf">
+                </div>
+
+                <!-- কন্টেন্ট বর্ণনা -->
+                <div class="col-md-12">
+                    <label class="form-label">সংক্ষিপ্ত বর্ণনা (Description)</label>
+                    <textarea class="form-control" rows="4" placeholder="এই লেসনটি সম্পর্কে কিছু লিখুন..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-upload">কন্টেন্ট পাবলিশ করুন</button>
+        </form>
+    </div>
+</div>
+
+ <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+
+                <!-- কলাম ১: লোগো ও সোশ্যাল -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <img src="images/ShikhoLogo.png" alt="Shikho" class="footer-logo rounded-3" style="height: 80px;">
+                    <p class="small fw-bold">শিখো অ্যাপ ডাউনলোড করো!</p>
+                    <a href="#"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                            alt="Google Play" class="google-play-btn"></a>
+
+                    <p class="mt-4 small fw-bold">আমাদের সাথে কানেক্টেড থাকো</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/" target="_blank"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.youtube.com/" target="_blank"><i class="bi bi-youtube"></i></a>
+                        <a href="https://www.instagram.com/?hl=en" target="_blank"><i class="bi bi-instagram"></i></i></a>
+                        <a href="https://bd.linkedin.com/" target="_blank"><i class="bi bi-linkedin"></i></i></a>
+                    </div>
+                </div>
+
+                <!-- কলাম ২: লিঙ্ক -->
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="footer-title">লিঙ্ক</h5>
+                    <ul class="footer-links">
+                        <li><a href="aboutUs.html">আমাদের সম্পর্কে</a></li>
+                        <li><a href="carrier.html">ক্যারিয়ার</a></li>
+                        <li><a href="#">স্কিলস</a></li>
+                        <li><a href="#">টিচার পোর্টাল</a></li>
+                    </ul>
+                </div>
+
+                <!-- কলাম ৩: যোগাযোগ -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">যোগাযোগ</h5>
+                    <div class="contact-item">
+                        <div class="icon-box"><i class="bi bi-telephone-inbound"></i></div>
+                        <span>16780</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon-box"><i class="bi bi-envelope-paper"></i></div>
+                        <span>team@shikho.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon-box"><i class="bi bi-geo-alt"></i></div>
+                        <span>Rangs Paramount, Level 11 Block-K,<br>Plot-11 Rd No 17, Dhaka 1213</span>
+                    </div>
+                </div>
+
+                <!-- কলাম ৪: কোম্পানির তথ্য -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">কোম্পানির তথ্য</h5>
+                    <p class="small mb-2">Trade licence No: TRAD/DNCC/037245/2022</p>
+                    <p class="small">E-TIN Number: 197682866359</p>
+                </div>
+
+            </div>
+
+            <!-- ফুটার বটম বার -->
+            <div class="footer-bottom d-flex flex-wrap justify-content-between">
+                <div class="mb-2">
+                    <a href="#">Terms & Conditions</a> |
+                    <a href="#">Refund Policy</a> |
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div>
+                    2026 Shikho Technologies Bangladesh Ltd
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Floating Chat Icon (Example) -->
+    <div class="chat-icon">
+        <span>💬</span>
+    </div>
+
+   
+            <!-- Modal -->
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            
+            <!-- Close Button Section -->
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px; top: 20px; z-index: 999;"></button>
+            </div>
+
+            <div class="modal-body px-5 pb-5">
+                <div class="text-center mb-4">
+                    <img src="images/ShikhoLogo.png" alt="Shikho" style="height: 80px;" class="rounded-3">
+                    <h5 class="mt-3 fw-bold" style="color: #2b307d;">স্বাগতম!</h5>
+                    <p class="text-muted">আপনার মোবাইল নম্বর দিয়ে লগ ইন করুন</p>
+                </div>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">মোবাইল নম্বর</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">+৮৮</span>
+                            <input type="text" class="form-control bg-light" placeholder="01XXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn w-100 py-2 mt-3"
+                        style="background-color: #4a58f2; color: white; border-radius: 10px; font-weight: 600;">
+                        পরবর্তী ধাপ
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="small text-muted">আপনার কি কোনো অ্যাকাউন্ট নেই? 
+                        <a href="#" style="color: #d12c8a; text-decoration: none; font-weight: 600;">সাইন আপ করুন</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
